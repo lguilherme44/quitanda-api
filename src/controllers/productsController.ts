@@ -1,14 +1,21 @@
 import { Request, Response } from 'express';
-import products from '../data/products';
+import * as productService from '../services/productsService';
 
-export const getAllProducts = (req: Request, res: Response): void => {
-  res.json(products);
+export const getAllProducts = async (req: Request, res: Response) => {
+  try {
+    const response = await productService.getAllProducts();
+    res.json(response);
+  } catch (err) {
+    res.status(500).send('Server error');
+  }
 };
 
-export const getProductsByCategory = (req: Request, res: Response): void => {
-  const categoryId = parseInt(req.params.categoryId, 10);
-  const filteredProducts = products.filter(
-    product => product.categoryId === categoryId
-  );
-  res.json(filteredProducts);
+export const getProductsByCategory = async (req: Request, res: Response) => {
+  try {
+    const categoryId = parseInt(req.params.categoryId, 10);
+    const response = await productService.getProductsByCategory(categoryId);
+    res.json(response);
+  } catch (err) {
+    res.status(500).send('Server error');
+  }
 };
