@@ -7,7 +7,7 @@
     "start": "node dist/app.js",
     "build": "tsc",
     "dev": "nodemon --exec ts-node src/app.ts",
-    "seed": "ts-node seeds/seed.ts",
+    "seed": "ts-node src/seed/seeds.ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "format-check": "prettier --check \"src/**/*.ts\""
   },
@@ -24,6 +24,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "pg": "^8.11.3"
   }

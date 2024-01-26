@@ -1,19 +1,6 @@
 import { pool } from '../config/db';
-
-interface Category {
-  id: number;
-  name: string;
-}
-
-interface Product {
-  id: number;
-  categoryId: number;
-  description: string;
-  imgUrl: string;
-  itemName: string;
-  price: number;
-  unit: string;
-}
+import { Category } from '../data/categories';
+import { Product } from '../data/products';
 
 const categories: Category[] = [
   { id: 1, name: 'Frutas' },
@@ -89,6 +76,9 @@ const products: Product[] = [
 
 const seedCategories = async () => {
   for (const category of categories) {
+    await pool.query(
+      'CREATE TABLE IF NOT EXISTS categories (id SERIAL PRIMARY KEY, name VARCHAR(255))'
+    );
     await pool.query('INSERT INTO categories (id, name) VALUES ($1, $2)', [
       category.id,
       category.name,
@@ -98,6 +88,9 @@ const seedCategories = async () => {
 
 const seedProducts = async () => {
   for (const product of products) {
+    await pool.query(
+      'CREATE TABLE IF NOT EXISTS products (id SERIAL PRIMARY KEY, categoryId INTEGER, description VARCHAR(255), imgUrl VARCHAR(255), itemName VARCHAR(255), price NUMERIC, unit VARCHAR(255))'
+    );
     await pool.query(
       'INSERT INTO products (id, categoryId, description, imgUrl, itemName, price, unit) VALUES ($1, $2, $3, $4, $5, $6, $7)',
       [
@@ -117,7 +110,7 @@ const seedDatabase = async () => {
   try {
     await seedCategories();
     await seedProducts();
-    console.log('Seeding completo.');
+    console.log('Seeding completed.');
   } catch (error) {
     console.error('Erro durante o seeding:', error);
   } finally {
