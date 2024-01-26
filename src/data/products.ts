@@ -6,10 +6,5 @@ export interface Product {
   itemName: string;
   price: number;
   unit: string;
+  active: boolean;
 }
-
-const products: Product[] = [
-  //... seus produtos
-];
-
-export default products;

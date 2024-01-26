@@ -1,10 +1,5 @@
 export interface Category {
   id: number;
   name: string;
+  active: boolean;
 }
-
-const categories: Category[] = [
-  //... suas categorias
-];
-
-export default categories;
