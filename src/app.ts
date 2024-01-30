@@ -1,8 +1,11 @@
 import express from 'express';
+import cors from 'cors';
 import productsRoutes from './routes/productsRoutes';
 import categoriesRoutes from './routes/categoriesRoutes';
 
 const app = express();
+
+app.use(cors());
 
 app.use('/products', productsRoutes);
 app.use('/categories', categoriesRoutes);
